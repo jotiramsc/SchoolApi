@@ -29,6 +29,11 @@ import com.spi.model.audit.DateAudit;
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }),
 		@UniqueConstraint(columnNames = { "email" }) })
 public class User extends DateAudit {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7538477950065158059L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -1,20 +1,14 @@
 package com.spi.entity;
 
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "SEMISTER")
@@ -34,12 +28,10 @@ public class Semister {
 
 	@Column
 	private Integer duration;
-	
-	@ManyToOne(cascade=CascadeType.MERGE)
+
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "class_id")
 	private CourseClass courseClass;
-	
-
 
 	public Semister() {
 		super();
@@ -103,8 +95,6 @@ public class Semister {
 		this.courseClass = courseClass;
 	}
 
-	
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -115,7 +105,7 @@ public class Semister {
 		result = prime * result + ((duration == null) ? 0 : duration.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		
+
 		return result;
 	}
 
@@ -155,18 +145,14 @@ public class Semister {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		
+
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Semister [id=" + id + ", name=" + name + ", abbr=" + abbr + ", description=" + description
-				+ ", duration=" + duration + ", courseClass=" + courseClass +"]";
+				+ ", duration=" + duration + ", courseClass=" + courseClass + "]";
 	}
 
-	
-	
-
-	
 }

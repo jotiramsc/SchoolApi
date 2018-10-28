@@ -13,7 +13,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spi.model.User;
 
 public class UserPrincipal implements UserDetails {
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     private String name;
 

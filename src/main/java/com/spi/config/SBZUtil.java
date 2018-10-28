@@ -49,6 +49,7 @@ public class SBZUtil {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static Date parseDate(String str, String format) {
 		SimpleDateFormat df = new SimpleDateFormat(format);
 		try {

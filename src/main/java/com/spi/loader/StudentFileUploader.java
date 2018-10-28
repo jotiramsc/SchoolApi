@@ -104,7 +104,7 @@ public class StudentFileUploader extends FileLoader {
 							if (hm.get("class") != null && !hm.get("class").equalsIgnoreCase("")) {
 								if (SBZUtil.isValidString(hm.get("class").trim(), true)) {
 									CourseClass cls = courseClassRepository
-											.getBycourse_abbrOrCourse_name(hm.get("class").trim());
+											.getBycourse_abbrOrCourse_name(hm.get("class").trim()).orElseThrow(()->new SBZException("No class with name"));
 									if (null != cls) {
 										student.setCourseClass(cls);
 									} else {

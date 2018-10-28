@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 
 import com.spi.entity.FileMapping;
 import com.spi.exception.ErrorResponse;
+import com.spi.exception.SBZException;
 import com.spi.loader.FacultyFileUploader;
 import com.spi.loader.FileLoader;
 import com.spi.loader.StudentFileUploader;
@@ -59,7 +60,7 @@ public class UploadController {
 		FileLoader loader = null;
 		try {
 
-			FileMapping mapper = fileMappingRepository.findByFileName(file_name);
+			FileMapping mapper = fileMappingRepository.findByFileName(file_name).orElseThrow(()->new SBZException("No File mapping with file name"));
 			if (null != mapper) {
 				String storedPath = storageService.store(file, mapper.getArchivePath(), mapper.getFileName());
 				files.add(file.getOriginalFilename());

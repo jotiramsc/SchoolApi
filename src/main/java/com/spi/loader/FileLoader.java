@@ -114,7 +114,7 @@ public abstract class FileLoader {
 		Path pathToFile = Paths.get(path);
 
 		try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII)) {
-			String line = br.readLine();
+			 br.readLine();
 			HashMap<String, String> hm = null;
 			this.dataList = new ArrayList<HashMap<String, String>>();
 			String dataLine = br.readLine();
@@ -156,7 +156,7 @@ public abstract class FileLoader {
 			throw new SBZException("File headers are not matching");
 		}
 
-		for (Iterator iterator = headers.iterator(); iterator.hasNext();) {
+		for (Iterator<String> iterator = headers.iterator(); iterator.hasNext();) {
 			String string = (String) iterator.next();
 			if (!fileHeaders.stream().anyMatch(t -> t.equalsIgnoreCase(string))) {
 				throw new SBZException("No matching header found for '" + string + "' in file");

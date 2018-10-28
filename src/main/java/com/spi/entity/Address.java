@@ -1,13 +1,10 @@
 package com.spi.entity;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "ADDRESS")
@@ -15,27 +12,29 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
-    long mobile_1;
-    long mobile_2;    
-    String phone_1;
-    String phone_2;
-    String email_1;
-    String email_2;
-    String facebook_link;
-    String gplus_link;
-    String linkedin_link;    
-    String website_link;
-    String address_1;
-    String address_2;
-    String city;
-    String district;
-    String state;
-    int pincode;
+
+	long mobile_1;
+	long mobile_2;
+	String phone_1;
+	String phone_2;
+	String email_1;
+	String email_2;
+	String facebook_link;
+	String gplus_link;
+	String linkedin_link;
+	String website_link;
+	String address_1;
+	String address_2;
+	String city;
+	String district;
+	String state;
+	int pincode;
+
 	public Address() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public Address(long mobile_1, long mobile_2, String phone_1, String phone_2, String email_1, String email_2,
 			String facebook_link, String gplus_link, String linkedin_link, String website_link, String address_1,
 			String address_2, String city, String district, String state, int pincode) {
@@ -57,108 +56,143 @@ public class Address {
 		this.state = state;
 		this.pincode = pincode;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public long getMobile_1() {
 		return mobile_1;
 	}
+
 	public void setMobile_1(long mobile_1) {
 		this.mobile_1 = mobile_1;
 	}
+
 	public long getMobile_2() {
 		return mobile_2;
 	}
+
 	public void setMobile_2(long mobile_2) {
 		this.mobile_2 = mobile_2;
 	}
+
 	public String getPhone_1() {
 		return phone_1;
 	}
+
 	public void setPhone_1(String phone_1) {
 		this.phone_1 = phone_1;
 	}
+
 	public String getPhone_2() {
 		return phone_2;
 	}
+
 	public void setPhone_2(String phone_2) {
 		this.phone_2 = phone_2;
 	}
+
 	public String getEmail_1() {
 		return email_1;
 	}
+
 	public void setEmail_1(String email_1) {
 		this.email_1 = email_1;
 	}
+
 	public String getEmail_2() {
 		return email_2;
 	}
+
 	public void setEmail_2(String email_2) {
 		this.email_2 = email_2;
 	}
+
 	public String getFacebook_link() {
 		return facebook_link;
 	}
+
 	public void setFacebook_link(String facebook_link) {
 		this.facebook_link = facebook_link;
 	}
+
 	public String getGplus_link() {
 		return gplus_link;
 	}
+
 	public void setGplus_link(String gplus_link) {
 		this.gplus_link = gplus_link;
 	}
+
 	public String getLinkedin_link() {
 		return linkedin_link;
 	}
+
 	public void setLinkedin_link(String linkedin_link) {
 		this.linkedin_link = linkedin_link;
 	}
+
 	public String getWebsite_link() {
 		return website_link;
 	}
+
 	public void setWebsite_link(String website_link) {
 		this.website_link = website_link;
 	}
+
 	public String getAddress_1() {
 		return address_1;
 	}
+
 	public void setAddress_1(String address_1) {
 		this.address_1 = address_1;
 	}
+
 	public String getAddress_2() {
 		return address_2;
 	}
+
 	public void setAddress_2(String address_2) {
 		this.address_2 = address_2;
 	}
+
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
 	public String getDistrict() {
 		return district;
 	}
+
 	public void setDistrict(String district) {
 		this.district = district;
 	}
+
 	public String getState() {
 		return state;
 	}
+
 	public void setState(String state) {
 		this.state = state;
 	}
+
 	public int getPincode() {
 		return pincode;
 	}
+
 	public void setPincode(int pincode) {
 		this.pincode = pincode;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -182,6 +216,7 @@ public class Address {
 		result = prime * result + ((website_link == null) ? 0 : website_link.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -266,6 +301,7 @@ public class Address {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Address [id=" + id + ", mobile_1=" + mobile_1 + ", mobile_2=" + mobile_2 + ", phone_1=" + phone_1
@@ -274,7 +310,5 @@ public class Address {
 				+ website_link + ", address_1=" + address_1 + ", address_2=" + address_2 + ", city=" + city
 				+ ", district=" + district + ", state=" + state + ", pincode=" + pincode + "]";
 	}
-    
-	
-	
+
 }

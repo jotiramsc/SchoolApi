@@ -19,6 +19,11 @@ import com.spi.model.audit.UserDateAudit;
 @Table(name = "DEPARTMENT")
 
 public class Department extends UserDateAudit {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3917062670649598982L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int id;
