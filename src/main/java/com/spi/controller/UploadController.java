@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import com.spi.config.FacultyFileUploader;
-import com.spi.config.FileLoader;
-import com.spi.config.StudentFileUploader;
 import com.spi.entity.FileMapping;
 import com.spi.exception.ErrorResponse;
+import com.spi.loader.FacultyFileUploader;
+import com.spi.loader.FileLoader;
+import com.spi.loader.StudentFileUploader;
 import com.spi.repository.FileMappingRepository;
 import com.spi.services.StorageService;
 

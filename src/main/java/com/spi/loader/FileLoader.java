@@ -1,4 +1,4 @@
-package com.spi.config;
+package com.spi.loader;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.spi.config;
+package com.spi.loader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,29 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.util.ArrayUtils;
 
+import com.spi.config.SBZUtil;
 import com.spi.entity.Address;
-import com.spi.entity.CourseClass;
-import com.spi.entity.Student;
+import com.spi.entity.Faculty;
 import com.spi.exception.SBZException;
 import com.spi.repository.AddressRepository;
-import com.spi.repository.CourseClassRepository;
-import com.spi.repository.StudentRepository;
+import com.spi.repository.FacultyRepository;
 
 @Component
-public class StudentFileUploader extends FileLoader {
+public class FacultyFileUploader extends FileLoader {
 
-	List<Student> students = null;
+	List<Faculty> faculties = null;
 
 	@Autowired
-	StudentRepository studentRepository = null;
+	FacultyRepository facultyRepository = null;
 
 	@Autowired
 	AddressRepository addressRepository = null;
 
-	@Autowired
-	CourseClassRepository courseClassRepository = null;
-
-	public StudentFileUploader() {
+	public FacultyFileUploader() {
 		super();
 	}
 
@@ -43,19 +39,28 @@ public class StudentFileUploader extends FileLoader {
 				if (null == this.dataList || this.dataList.size() == 0) {
 					throw new SBZException("File does not have data");
 				} else {
-					this.students = new ArrayList<Student>();
+					this.faculties = new ArrayList<Faculty>();
 					for (int i = 0; i < this.dataList.size(); i++) {
 						HashMap<String, String> hm = this.dataList.get(i);
 
 						if (null == hm || hm.size() == 0) {
 							this.expList.add(new SBZException("data not found for row :" + (i + 1)));
 						} else {
-							Student student = new Student();
+							Faculty faculty = new Faculty();
 							Address address = new Address();
+
+							if (hm.get("title") != null && !hm.get("title").equalsIgnoreCase("")) {
+								if (SBZUtil.isValidString(hm.get("title"), false)
+										&& ArrayUtils.contains(SBZUtil.honorifics, hm.get("title").trim())) {
+									faculty.setTitle(hm.get("title"));
+								} else {
+									this.expList.add(new SBZException("Title invalid at row :" + (i + 1)));
+								}
+							}
 
 							if (hm.get("first_name") != null && !hm.get("first_name").equalsIgnoreCase("")) {
 								if (SBZUtil.isValidString(hm.get("first_name").trim(), true)) {
-									student.setFirst_name(hm.get("first_name").trim());
+									faculty.setFirst_name(hm.get("first_name").trim());
 								} else {
 									this.expList.add(new SBZException("First name invalid at row :" + (i + 1)));
 								}
@@ -65,7 +70,7 @@ public class StudentFileUploader extends FileLoader {
 
 							if (hm.get("middle_name") != null && !hm.get("middle_name").equalsIgnoreCase("")) {
 								if (SBZUtil.isValidString(hm.get("middle_name").trim(), true)) {
-									student.setMiddle_name(hm.get("middle_name").trim());
+									faculty.setMiddle_name(hm.get("middle_name").trim());
 								} else {
 									this.expList.add(new SBZException("Middle name invalid at row :" + (i + 1)));
 								}
@@ -73,7 +78,7 @@ public class StudentFileUploader extends FileLoader {
 
 							if (hm.get("last_name") != null && !hm.get("last_name").equalsIgnoreCase("")) {
 								if (SBZUtil.isValidString(hm.get("last_name").trim(), true)) {
-									student.setLast_name(hm.get("last_name").trim());
+									faculty.setLast_name(hm.get("last_name").trim());
 								} else {
 									this.expList.add(new SBZException("Last name invalid at row :" + (i + 1)));
 								}
@@ -83,7 +88,7 @@ public class StudentFileUploader extends FileLoader {
 
 							if (hm.get("gender") != null && !hm.get("gender").equalsIgnoreCase("")) {
 								if (SBZUtil.isValidString(hm.get("gender").trim(), true)) {
-									student.setGender(hm.get("gender").trim());
+									faculty.setGender(hm.get("gender").trim());
 								} else {
 									this.expList.add(new SBZException("Gender invalid at row :" + (i + 1)));
 								}
@@ -93,28 +98,21 @@ public class StudentFileUploader extends FileLoader {
 
 							if (hm.get("birthdate") != null && !hm.get("birthdate").equalsIgnoreCase("")) {
 								if (SBZUtil.isValidDate(hm.get("birthdate").trim(), "dd/mm/yyyy")) {
-									student.setBirthdate(SBZUtil.parseDate(hm.get("birthdate").trim(), "dd/mm/yyyy"));
+									faculty.setBirthdate(SBZUtil.parseDate(hm.get("birthdate").trim(), "dd/mm/yyyy"));
 								} else {
 									this.expList.add(new SBZException("Birthdate invalid at row :" + (i + 1)));
 								}
 							} else {
 								this.expList.add(new SBZException("Birthdate needed at row :" + (i + 1)));
 							}
-							if (hm.get("class") != null && !hm.get("class").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidString(hm.get("class").trim(), true)) {
-									CourseClass cls = courseClassRepository
-											.getBycourse_abbrOrCourse_name(hm.get("class").trim());
-									if (null != cls) {
-										student.setCourseClass(cls);
-									} else {
-										this.expList.add(new SBZException("Invalid class selected at row :" + (i + 1)));
-									}
 
-								} else {
-									this.expList.add(new SBZException("Class invalid at row :" + (i + 1)));
-								}
-							} else {
-								this.expList.add(new SBZException("Class needed at row :" + (i + 1)));
+							if (hm.get("qualification") != null && !hm.get("qualification").equalsIgnoreCase("")) {
+								faculty.setQualification(hm.get("qualification").trim());
+							}
+
+							if (hm.get("designation") != null && !hm.get("designation").equalsIgnoreCase("")) {
+								faculty.setDesignation(hm.get("designation").trim());
+
 							}
 
 							if (hm.get("mobile_1") != null && !hm.get("mobile_1").equalsIgnoreCase("")) {
@@ -221,8 +219,8 @@ public class StudentFileUploader extends FileLoader {
 								this.expList.add(new SBZException("Pincode needed at row :" + (i + 1)));
 							}
 
-							student.setAddress(address);
-							this.students.add(student);
+							faculty.setAddress(address);
+							this.faculties.add(faculty);
 						}
 
 					}
@@ -250,7 +248,7 @@ public class StudentFileUploader extends FileLoader {
 			System.out.println("There are some exp");
 		} else {
 
-			studentRepository.saveAll(this.students);
+			facultyRepository.saveAll(this.faculties);
 		}
 	}
 
