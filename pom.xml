@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.sbz</groupId>
-	<artifactId>SBZApi</artifactId>
+	<artifactId>SchoolApi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>SBZApi</name>
-	<description>Shreeman Bhausaheb Zadbuke Mahavidyalaya Web Portal</description>
+	<name>SchoolApi</name>
+	<description>Web Portal</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
