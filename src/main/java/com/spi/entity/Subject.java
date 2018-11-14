@@ -13,10 +13,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spi.model.audit.UserDateAudit;
 
 @Entity
 @Table(name = "SUBJECT")
-public class Subject {
+public class Subject extends UserDateAudit{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4547850537043854081L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -37,6 +43,10 @@ public class Subject {
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subject", cascade = CascadeType.ALL)
 	private Set<FacSubMapper> facMappers;
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subject", cascade = CascadeType.ALL)
+	private Set<Attendance> attendances ;
 
 	public Subject() {
 		super();
@@ -72,6 +82,23 @@ public class Subject {
 
 	public void setclassMappers(Set<ClassSubMapper> classMappers) {
 		this.classMappers = classMappers;
+	}
+
+	
+	public Set<ClassSubMapper> getClassMappers() {
+		return classMappers;
+	}
+
+	public void setClassMappers(Set<ClassSubMapper> classMappers) {
+		this.classMappers = classMappers;
+	}
+
+	public Set<Attendance> getAttendances() {
+		return attendances;
+	}
+
+	public void setAttendances(Set<Attendance> attendances) {
+		this.attendances = attendances;
 	}
 
 	public String getName() {

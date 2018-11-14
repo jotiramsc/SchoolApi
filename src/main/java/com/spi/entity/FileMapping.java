@@ -7,9 +7,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.spi.model.audit.UserDateAudit;
+
 @Entity
 @Table(name = "FILE_MAPPING")
-public class FileMapping {
+public class FileMapping extends UserDateAudit{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5182430157381038918L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;

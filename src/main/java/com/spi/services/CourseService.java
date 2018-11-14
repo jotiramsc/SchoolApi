@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spi.config.SBZUtil;
+import com.spi.config.AppUtil;
 import com.spi.entity.Course;
 import com.spi.entity.CourseClass;
 import com.spi.entity.Semister;
@@ -77,19 +77,19 @@ public class CourseService {
 		for (int i = 0; i < objCount; i++) {
 
 			if (course.getType().equalsIgnoreCase("annual")) {
-				String class_name = course.getName() + " " + SBZUtil.IntegerToRoman(class_count);
-				String class_abbr = course.getAbbr() + " " + SBZUtil.IntegerToRoman(class_count);
+				String class_name = course.getName() + " " + AppUtil.IntegerToRoman(class_count);
+				String class_abbr = course.getAbbr() + " " + AppUtil.IntegerToRoman(class_count);
 				c = new CourseClass(class_name, class_abbr, class_name, course);
 				classRepository.save(c);
 				class_count++;
 			} else if (i % 2 == 0) {
-				String class_name = course.getName() + " " + SBZUtil.IntegerToRoman(class_count);
-				String class_abbr = course.getAbbr() + " " + SBZUtil.IntegerToRoman(class_count);
+				String class_name = course.getName() + " " + AppUtil.IntegerToRoman(class_count);
+				String class_abbr = course.getAbbr() + " " + AppUtil.IntegerToRoman(class_count);
 				c = new CourseClass(class_name, class_abbr, class_name, course);
 				classRepository.save(c);
 				class_count++;
 			}
-			String roman = SBZUtil.IntegerToRoman(i + 1);
+			String roman = AppUtil.IntegerToRoman(i + 1);
 			Semister sem = new Semister(nameString + " " + roman, abbrString + " " + roman,
 					course.getName() + " " + nameString + " " + roman, duration, c);
 

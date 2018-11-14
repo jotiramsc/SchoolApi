@@ -15,10 +15,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spi.model.audit.UserDateAudit;
 
 @Entity
 @Table(name = "COURSE")
-public class Course {
+public class Course extends UserDateAudit {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7096421910494750550L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;

@@ -1,23 +1,30 @@
 package com.spi.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spi.model.audit.UserDateAudit;
+
 @Entity
 @Table(name = "STUDENT")
-public class Student {
+public class Student extends UserDateAudit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
+	int rollNo;
 
 	String first_name;
 
@@ -36,16 +43,20 @@ public class Student {
 	@JoinColumn(name = "ADDRESS_ID", unique = true)
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
+	private Set<Attendance> attendances;
 
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Student(int id, String first_name, String middle_name, String last_name, String gender, Date birthdate,
+	public Student(int rollNo, String first_name, String middle_name, String last_name, String gender, Date birthdate,
 			CourseClass courseClass, Address address) {
 		super();
-		this.id = id;
+		this.rollNo = rollNo;
 		this.first_name = first_name;
 		this.middle_name = middle_name;
 		this.last_name = last_name;
@@ -61,6 +72,15 @@ public class Student {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+
+	public int getRollNo() {
+		return rollNo;
+	}
+
+	public void setRollNo(int rollNo) {
+		this.rollNo = rollNo;
 	}
 
 	public String getFirst_name() {
@@ -119,6 +139,13 @@ public class Student {
 		this.address = address;
 	}
 
+	public Set<Attendance> getAttendances() {
+		return attendances;
+	}
+
+	public void setAttendances(Set<Attendance> attendances) {
+		this.attendances = attendances;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -131,6 +158,7 @@ public class Student {
 		result = prime * result + id;
 		result = prime * result + ((last_name == null) ? 0 : last_name.hashCode());
 		result = prime * result + ((middle_name == null) ? 0 : middle_name.hashCode());
+		result = prime * result + rollNo;
 		return result;
 	}
 
@@ -180,14 +208,16 @@ public class Student {
 				return false;
 		} else if (!middle_name.equals(other.middle_name))
 			return false;
+		if (rollNo != other.rollNo)
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", first_name=" + first_name + ", middle_name=" + middle_name + ", last_name="
-				+ last_name + ", gender=" + gender + ", birthdate=" + birthdate + ", courseClass=" + courseClass
-				+ ", address=" + address + "]";
+		return "Student [id=" + id + ", rollNo=" + rollNo + ", first_name=" + first_name + ", middle_name="
+				+ middle_name + ", last_name=" + last_name + ", gender=" + gender + ", birthdate=" + birthdate
+				+ ", courseClass=" + courseClass + ", address=" + address + "]";
 	}
 
 	

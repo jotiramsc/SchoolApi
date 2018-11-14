@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spi.entity.Faculty;
+import com.spi.exception.SBZException;
 import com.spi.services.FacultyService;
 
 @RestController
@@ -35,12 +36,12 @@ public class FacultyController {
 	}
 
 	@PutMapping
-	public ResponseEntity<Faculty> updateFaculty(@RequestBody Faculty faculty) {
+	public ResponseEntity<Faculty> updateFaculty(@RequestBody Faculty faculty) throws SBZException {
 		return new ResponseEntity<Faculty>(facultyService.updateFaculty(faculty), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteFaculty(@PathVariable int id) {
+	public ResponseEntity<Object> deleteFaculty(@PathVariable int id) throws SBZException {
 		facultyService.deleteFaculty(id);
 		return new ResponseEntity<Object>(null, HttpStatus.OK);
 	}

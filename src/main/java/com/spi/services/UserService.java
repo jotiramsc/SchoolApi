@@ -1,4 +1,4 @@
-package com.spi.controller;
+package com.spi.services;
 
 import java.net.URI;
 import java.util.Collections;
@@ -9,33 +9,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.spi.model.Role;
 import com.spi.model.RoleName;
 import com.spi.model.User;
 import com.spi.payload.ApiResponse;
-import com.spi.payload.JwtAuthenticationResponse;
-import com.spi.payload.LoginRequest;
 import com.spi.payload.SignUpRequest;
 import com.spi.repository.RoleRepository;
 import com.spi.repository.UserRepository;
 import com.spi.security.JwtTokenProvider;
 
-/**
- * Created by rajeevkumarsingh on 02/08/17.
- */
-@RestController
-@RequestMapping("/api/auth")
-public class AuthController {
+@Service
+public class UserService {
 
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -52,33 +42,19 @@ public class AuthController {
 	@Autowired
 	JwtTokenProvider tokenProvider;
 
-	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmail(), loginRequest.getPassword()));
-
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-		String jwt = tokenProvider.generateToken(authentication);
-		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
-	}
-
-	@PostMapping("/signup")
-	public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+	
+	public ResponseEntity<ApiResponse> registerUser(User user) {
+		if (userRepository.existsByUsername(user.getUsername())) {
 			return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Username is already taken!"), HttpStatus.BAD_REQUEST);
 		}
 
-		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+		if (userRepository.existsByEmail(user.getEmail())) {
 			return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Email Address already in use!"), HttpStatus.BAD_REQUEST);
 		}
 
 		// Creating user's account
 	
-		User user = new User(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(),
-				signUpRequest.getPassword(),1,1);
-
+		
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 		Role userRole = roleRepository.findByName(RoleName.ROLE_USER);

@@ -59,16 +59,26 @@ public class User extends DateAudit {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+	
+	private int refId;
+	
+	private int typeId;
 
 	public User() {
 
 	}
 
-	public User(String name, String username, String email, String password) {
+	public User(@NotBlank @Size(max = 40) String name, @NotBlank @Size(max = 15) String username,
+			@NotBlank @Size(max = 40) @Email String email, @NotBlank @Size(max = 100) String password,
+			int refId, int typeId) {
+		super();
 		this.name = name;
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.roles = roles;
+		this.refId = refId;
+		this.typeId = typeId;
 	}
 
 	public Long getId() {
@@ -79,20 +89,20 @@ public class User extends DateAudit {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmail() {
@@ -118,4 +128,22 @@ public class User extends DateAudit {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
+	public int getRefId() {
+		return refId;
+	}
+
+	public void setRefId(int refId) {
+		this.refId = refId;
+	}
+
+	public int getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
+	}
+
+	
 }

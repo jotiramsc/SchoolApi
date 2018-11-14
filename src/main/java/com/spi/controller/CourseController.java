@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spi.config.SBZUtil;
+import com.spi.config.AppUtil;
 import com.spi.entity.Course;
 import com.spi.entity.CourseClass;
 import com.spi.entity.Semister;

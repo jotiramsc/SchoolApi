@@ -6,9 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.spi.model.audit.UserDateAudit;
+
 @Entity
 @Table(name = "BOOK")
-public class Book {
+public class Book extends UserDateAudit {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 234737074687057082L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int bookID;

@@ -8,8 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.spi.model.audit.UserDateAudit;
+
 @Entity(name = "NOTICE_BOARD")
-public class Notice {
+public class Notice extends UserDateAudit {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4344374655308196755L;
 
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,17 +43,7 @@ public class Notice {
 	@Column
 	String active_flag;
 
-	@Column
-	Integer created_by;
-
-	@Column
-	LocalDateTime created_date;
-
-	@Column
-	Integer update_by;
-
-	@Column
-	LocalDateTime updated_date;
+	
 
 	public Notice() {
 		super();
@@ -54,8 +51,7 @@ public class Notice {
 	}
 
 	public Notice(Integer id, String header, String content, String description, String link,
-			String sevarity, Integer order_seq, String active_flag, Integer created_by, LocalDateTime created_date,
-			Integer update_by, LocalDateTime updated_date) {
+			String sevarity, Integer order_seq, String active_flag) {
 		super();
 		this.id = id;
 		this.header = header;
@@ -65,10 +61,7 @@ public class Notice {
 		this.sevarity = sevarity;
 		this.order_seq = order_seq;
 		this.active_flag = active_flag;
-		this.created_by = created_by;
-		this.created_date = created_date;
-		this.update_by = update_by;
-		this.updated_date = updated_date;
+		
 	}
 
 	public Integer getId() {
@@ -135,37 +128,7 @@ public class Notice {
 		this.active_flag = active_flag;
 	}
 
-	public Integer getCreated_by() {
-		return created_by;
-	}
-
-	public void setCreated_by(Integer created_by) {
-		this.created_by = created_by;
-	}
-
-	public LocalDateTime getCreated_date() {
-		return created_date;
-	}
-
-	public void setCreated_date(LocalDateTime created_date) {
-		this.created_date = created_date;
-	}
-
-	public Integer getUpdate_by() {
-		return update_by;
-	}
-
-	public void setUpdate_by(Integer update_by) {
-		this.update_by = update_by;
-	}
-
-	public LocalDateTime getUpdated_date() {
-		return updated_date;
-	}
-
-	public void setUpdated_date(LocalDateTime updated_date) {
-		this.updated_date = updated_date;
-	}
+	
 
 	@Override
 	public int hashCode() {
@@ -173,16 +136,14 @@ public class Notice {
 		int result = 1;
 		result = prime * result + ((active_flag == null) ? 0 : active_flag.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
-		result = prime * result + ((created_by == null) ? 0 : created_by.hashCode());
-		result = prime * result + ((created_date == null) ? 0 : created_date.hashCode());
+
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((header == null) ? 0 : header.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((link == null) ? 0 : link.hashCode());
 		result = prime * result + ((order_seq == null) ? 0 : order_seq.hashCode());
 		result = prime * result + ((sevarity == null) ? 0 : sevarity.hashCode());
-		result = prime * result + ((update_by == null) ? 0 : update_by.hashCode());
-		result = prime * result + ((updated_date == null) ? 0 : updated_date.hashCode());
+		
 		return result;
 	}
 
@@ -205,16 +166,7 @@ public class Notice {
 				return false;
 		} else if (!content.equals(other.content))
 			return false;
-		if (created_by == null) {
-			if (other.created_by != null)
-				return false;
-		} else if (!created_by.equals(other.created_by))
-			return false;
-		if (created_date == null) {
-			if (other.created_date != null)
-				return false;
-		} else if (!created_date.equals(other.created_date))
-			return false;
+	
 		if (description == null) {
 			if (other.description != null)
 				return false;
@@ -245,16 +197,7 @@ public class Notice {
 				return false;
 		} else if (!sevarity.equals(other.sevarity))
 			return false;
-		if (update_by == null) {
-			if (other.update_by != null)
-				return false;
-		} else if (!update_by.equals(other.update_by))
-			return false;
-		if (updated_date == null) {
-			if (other.updated_date != null)
-				return false;
-		} else if (!updated_date.equals(other.updated_date))
-			return false;
+		
 		return true;
 	}
 
@@ -262,8 +205,7 @@ public class Notice {
 	public String toString() {
 		return "NoticeBoardEntity [id=" + id + ", header=" + header + ", content=" + content + ", description="
 				+ description + ", link=" + link + ", sevarity=" + sevarity + ", order_seq=" + order_seq
-				+ ", active_flag=" + active_flag + ", created_by=" + created_by + ", created_date=" + created_date
-				+ ", update_by=" + update_by + ", updated_date=" + updated_date + "]";
+				+ ", active_flag=" + active_flag + "]";
 	}
 
 }

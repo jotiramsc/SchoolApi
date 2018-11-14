@@ -3,11 +3,15 @@ package com.spi.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spi.exception.ResourceNotFoundException;
+import com.spi.model.User;
 import com.spi.payload.UserIdentityAvailability;
+import com.spi.payload.UserProfile;
 import com.spi.payload.UserSummary;
 import com.spi.repository.UserRepository;
 import com.spi.security.CurrentUser;
@@ -45,8 +49,8 @@ public class UserController {
 //		User user = userRepository.findByUsername(username)
 //				.orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
 //
-////		long pollCount = pollRepository.countByCreatedBy(user.getId());
-////		long voteCount = voteRepository.countByUserId(user.getId());
+//		long pollCount = pollRepository.countByCreatedBy(user.getId());
+//		long voteCount = voteRepository.countByUserId(user.getId());
 //
 //		UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getCreatedAt(),
 //				pollCount, voteCount);

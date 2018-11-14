@@ -10,9 +10,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.spi.model.audit.UserDateAudit;
+
 @Entity
 @Table(name = "SEMISTER")
-public class Semister {
+public class Semister extends UserDateAudit{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 674295390944106770L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;

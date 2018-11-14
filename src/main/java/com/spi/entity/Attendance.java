@@ -1,6 +1,7 @@
 package com.spi.entity;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,36 +13,36 @@ import javax.persistence.Table;
 import com.spi.model.audit.UserDateAudit;
 
 @Entity
-@Table(name = "CLASS_SUB_MAPPER")
-public class ClassSubMapper extends UserDateAudit{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3529204530692961556L;
-
+@Table(name = "ATTENDANCE")
+public class Attendance extends UserDateAudit {
+	private static final long serialVersionUID = 4563705011705428755L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;	
+	public int id;	
 
-	@ManyToOne(cascade=CascadeType.MERGE)
-	@JoinColumn(name = "courseClassId")
-	private CourseClass courseClass;
-
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "student_id")
+	private Student student;	
+	
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "subject_id")
 	private Subject subject;
+	
+	@Column
+	private boolean present;
 
-	public ClassSubMapper() {
+	public Attendance() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ClassSubMapper(int id, CourseClass courseClass, Subject subject) {
+	public Attendance(int id, Student student, Subject subject, boolean present) {
 		super();
 		this.id = id;
-		this.courseClass = courseClass;
+		this.student = student;
 		this.subject = subject;
+		this.present = present;
 	}
 
 	public int getId() {
@@ -52,12 +53,12 @@ public class ClassSubMapper extends UserDateAudit{
 		this.id = id;
 	}
 
-	public CourseClass getCourseClass() {
-		return courseClass;
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setCourseClass(CourseClass courseClass) {
-		this.courseClass = courseClass;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	public Subject getSubject() {
@@ -68,12 +69,21 @@ public class ClassSubMapper extends UserDateAudit{
 		this.subject = subject;
 	}
 
+	public boolean isPresent() {
+		return present;
+	}
+
+	public void setPresent(boolean present) {
+		this.present = present;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((courseClass == null) ? 0 : courseClass.hashCode());
 		result = prime * result + id;
+		result = prime * result + (present ? 1231 : 1237);
+		result = prime * result + ((student == null) ? 0 : student.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
 	}
@@ -86,13 +96,15 @@ public class ClassSubMapper extends UserDateAudit{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ClassSubMapper other = (ClassSubMapper) obj;
-		if (courseClass == null) {
-			if (other.courseClass != null)
-				return false;
-		} else if (!courseClass.equals(other.courseClass))
-			return false;
+		Attendance other = (Attendance) obj;
 		if (id != other.id)
+			return false;
+		if (present != other.present)
+			return false;
+		if (student == null) {
+			if (other.student != null)
+				return false;
+		} else if (!student.equals(other.student))
 			return false;
 		if (subject == null) {
 			if (other.subject != null)
@@ -104,10 +116,12 @@ public class ClassSubMapper extends UserDateAudit{
 
 	@Override
 	public String toString() {
-		return "ClassSubMapper [id=" + id + ", courseClass=" + courseClass + ", subject=" + subject + "]";
+		return "Attendance [id=" + id + ", student=" + student + ", subject=" + subject + ", present=" + present + "]";
 	}
-
+	
+	
+	
+	
 	
 
-	
 }

@@ -1,6 +1,7 @@
 package com.spi.config;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
@@ -16,10 +17,12 @@ public class ApiAspect {
 	//What kind of method calls I would intercept
 	//execution(* PACKAGE.*.*(..))
 	//Weaving & Weaver
-	@Before("execution(* com.spi.*.*(..))")
+	@Before("execution(* com.spi.services.*.*(..))")
 	public void before(JoinPoint joinPoint){
-		//Advice
-		logger.info(" Check for user access ");
-		logger.info(" Allowed execution for {}", joinPoint);
+		logger.info(" Before execution of {}", joinPoint.getSignature());
+	}
+	@After("execution(* com.spi.services.*.*(..))")
+	public void after(JoinPoint joinPoint){
+		logger.info(" After execution of {}", joinPoint.getSignature());
 	}
 }

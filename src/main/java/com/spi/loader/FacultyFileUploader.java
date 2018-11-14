@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.util.ArrayUtils;
 
-import com.spi.config.SBZUtil;
+import com.spi.config.AppUtil;
 import com.spi.entity.Address;
 import com.spi.entity.Faculty;
 import com.spi.exception.SBZException;
@@ -50,8 +50,8 @@ public class FacultyFileUploader extends FileLoader {
 							Address address = new Address();
 
 							if (hm.get("title") != null && !hm.get("title").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidString(hm.get("title"), false)
-										&& ArrayUtils.contains(SBZUtil.honorifics, hm.get("title").trim())) {
+								if (AppUtil.isValidString(hm.get("title"), false)
+										&& ArrayUtils.contains(AppUtil.honorifics, hm.get("title").trim())) {
 									faculty.setTitle(hm.get("title"));
 								} else {
 									this.expList.add(new SBZException("Title invalid at row :" + (i + 1)));
@@ -59,7 +59,7 @@ public class FacultyFileUploader extends FileLoader {
 							}
 
 							if (hm.get("first_name") != null && !hm.get("first_name").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidString(hm.get("first_name").trim(), true)) {
+								if (AppUtil.isValidString(hm.get("first_name").trim(), true)) {
 									faculty.setFirst_name(hm.get("first_name").trim());
 								} else {
 									this.expList.add(new SBZException("First name invalid at row :" + (i + 1)));
@@ -69,7 +69,7 @@ public class FacultyFileUploader extends FileLoader {
 							}
 
 							if (hm.get("middle_name") != null && !hm.get("middle_name").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidString(hm.get("middle_name").trim(), true)) {
+								if (AppUtil.isValidString(hm.get("middle_name").trim(), true)) {
 									faculty.setMiddle_name(hm.get("middle_name").trim());
 								} else {
 									this.expList.add(new SBZException("Middle name invalid at row :" + (i + 1)));
@@ -77,7 +77,7 @@ public class FacultyFileUploader extends FileLoader {
 							}
 
 							if (hm.get("last_name") != null && !hm.get("last_name").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidString(hm.get("last_name").trim(), true)) {
+								if (AppUtil.isValidString(hm.get("last_name").trim(), true)) {
 									faculty.setLast_name(hm.get("last_name").trim());
 								} else {
 									this.expList.add(new SBZException("Last name invalid at row :" + (i + 1)));
@@ -87,7 +87,7 @@ public class FacultyFileUploader extends FileLoader {
 							}
 
 							if (hm.get("gender") != null && !hm.get("gender").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidString(hm.get("gender").trim(), true)) {
+								if (AppUtil.isValidString(hm.get("gender").trim(), true)) {
 									faculty.setGender(hm.get("gender").trim());
 								} else {
 									this.expList.add(new SBZException("Gender invalid at row :" + (i + 1)));
@@ -97,8 +97,8 @@ public class FacultyFileUploader extends FileLoader {
 							}
 
 							if (hm.get("birthdate") != null && !hm.get("birthdate").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidDate(hm.get("birthdate").trim(), "dd/mm/yyyy")) {
-									faculty.setBirthdate(SBZUtil.parseDate(hm.get("birthdate").trim(), "dd/mm/yyyy"));
+								if (AppUtil.isValidDate(hm.get("birthdate").trim(), "dd/mm/yyyy")) {
+									faculty.setBirthdate(AppUtil.parseDate(hm.get("birthdate").trim(), "dd/mm/yyyy"));
 								} else {
 									this.expList.add(new SBZException("Birthdate invalid at row :" + (i + 1)));
 								}
@@ -116,7 +116,7 @@ public class FacultyFileUploader extends FileLoader {
 							}
 
 							if (hm.get("mobile_1") != null && !hm.get("mobile_1").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidMobile(hm.get("mobile_1").trim())) {
+								if (AppUtil.isValidMobile(hm.get("mobile_1").trim())) {
 									address.setMobile_1(Long.parseLong(hm.get("mobile_1").trim()));
 								} else {
 									this.expList.add(new SBZException("Mobile_1 invalid at row :" + (i + 1)));
@@ -126,7 +126,7 @@ public class FacultyFileUploader extends FileLoader {
 							}
 
 							if (hm.get("mobile_2") != null && !hm.get("mobile_2").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidMobile(hm.get("mobile_2").trim())) {
+								if (AppUtil.isValidMobile(hm.get("mobile_2").trim())) {
 									address.setMobile_2(Long.parseLong(hm.get("mobile_2").trim()));
 								} else {
 									this.expList.add(new SBZException("Mobile_2 invalid at row :" + (i + 1)));
@@ -143,7 +143,7 @@ public class FacultyFileUploader extends FileLoader {
 							}
 
 							if (hm.get("email_1") != null && !hm.get("email_1").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidEmail(hm.get("email_1").trim())) {
+								if (AppUtil.isValidEmail(hm.get("email_1").trim())) {
 									address.setEmail_1(hm.get("email_1").trim());
 								} else {
 									this.expList.add(new SBZException("Email_1 invalid at row :" + (i + 1)));
@@ -153,7 +153,7 @@ public class FacultyFileUploader extends FileLoader {
 							}
 
 							if (hm.get("email_2") != null && !hm.get("email_2").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidEmail(hm.get("email_2").trim())) {
+								if (AppUtil.isValidEmail(hm.get("email_2").trim())) {
 									address.setEmail_2(hm.get("email_2").trim());
 								} else {
 									this.expList.add(new SBZException("Email_2 invalid at row :" + (i + 1)));
@@ -199,8 +199,8 @@ public class FacultyFileUploader extends FileLoader {
 							}
 
 							if (hm.get("state") != null && !hm.get("state").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidString(hm.get("state").trim(), true)
-										&& ArrayUtils.contains(SBZUtil.states, hm.get("state").trim())) {
+								if (AppUtil.isValidString(hm.get("state").trim(), true)
+										&& ArrayUtils.contains(AppUtil.states, hm.get("state").trim())) {
 									address.setState(hm.get("state"));
 								} else {
 									this.expList.add(new SBZException("State name invalid at row :" + (i + 1)));
@@ -210,7 +210,7 @@ public class FacultyFileUploader extends FileLoader {
 							}
 
 							if (hm.get("pincode") != null && !hm.get("pincode").equalsIgnoreCase("")) {
-								if (SBZUtil.isValidZip(hm.get("pincode").trim())) {
+								if (AppUtil.isValidZip(hm.get("pincode").trim())) {
 									address.setPincode(Integer.parseInt(hm.get("pincode").trim()));
 								} else {
 									this.expList.add(new SBZException("Pincode invalid at row :" + (i + 1)));

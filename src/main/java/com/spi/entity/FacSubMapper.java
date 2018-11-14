@@ -9,9 +9,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.spi.model.audit.UserDateAudit;
+
 @Entity
 @Table(name = "FAC_SUB_MAPPER")
-public class FacSubMapper {
+public class FacSubMapper extends UserDateAudit{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4955298582314639289L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

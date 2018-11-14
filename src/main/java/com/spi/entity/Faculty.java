@@ -19,10 +19,16 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers.DateDeserializer;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
+import com.spi.model.audit.UserDateAudit;
 
 @Entity
 @Table(name = "FACULTY")
-public class Faculty {
+public class Faculty extends UserDateAudit{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7824566365931226315L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
