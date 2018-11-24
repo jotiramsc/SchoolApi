@@ -1,7 +1,10 @@
 package com.spi.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +28,16 @@ public class UserController {
 	private UserRepository userRepository;
 
 	@GetMapping("/user/me")
-	@PreAuthorize("hasRole('USER')")
-	public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
-		UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(),
-				currentUser.getName());
-		return userSummary;
+	//@PreAuthorize("hasRole('USER')")
+	public User getCurrentUser() {
+		UserPrincipal currentUser =(UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user=new User();
+		user.setEmail(currentUser.getEmail());
+		user.setName(currentUser.getName());
+		user.setId(currentUser.getId());
+		user.setUsername(currentUser.getUsername());
+		
+		return user;
 	}
 
 	@GetMapping("/user/checkUsernameAvailability")
