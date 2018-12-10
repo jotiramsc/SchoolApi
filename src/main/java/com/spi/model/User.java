@@ -45,6 +45,11 @@ public class User extends DateAudit {
 	@NotBlank
 	@Size(max = 15)
 	private String username;
+	
+
+	@NotBlank
+	@Size(max = 10)
+	private String mobile;
 
 	@NaturalId
 	@NotBlank
@@ -63,6 +68,16 @@ public class User extends DateAudit {
 	private int refId;
 	
 	private int typeId;
+	
+	private String otp;
+
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
 
 	public User() {
 
@@ -97,6 +112,13 @@ public class User extends DateAudit {
 		this.name = name;
 	}
 
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 	public String getUsername() {
 		return username;
 	}

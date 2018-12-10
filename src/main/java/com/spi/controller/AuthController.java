@@ -2,6 +2,7 @@ package com.spi.controller;
 
 import java.net.URI;
 import java.util.Collections;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -63,6 +64,8 @@ public class AuthController {
 		String jwt = tokenProvider.generateToken(authentication);
 		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
 	}
+	
+	
 
 	@PostMapping("/signup")
 	public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
