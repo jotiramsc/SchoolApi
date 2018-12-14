@@ -53,16 +53,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return new SimpleEncoder();
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-	    .authorizeRequests()
-	    .antMatchers("/api/user/**","/api/auth/**").permitAll()
-	    .antMatchers("/api/auth/**").permitAll()
-	    .anyRequest().authenticated();
+	    http
+        .cors()
+            .and()
+        .csrf()
+            .disable()
+        .exceptionHandling()
+            .authenticationEntryPoint(unauthorizedHandler)
+            .and()
+        .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+        .authorizeRequests()
+            .antMatchers("/",
+                "/favicon.ico",
+                "/**/*.png",
+                "/**/*.gif",
+                "/**/*.svg",
+                "/**/*.jpg",
+                "/**/*.html",
+                "/**/*.css",
+                "/**/*.js")
+                .permitAll()
+            .antMatchers("/api/auth/**")
+                .permitAll()
+            .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability","/api/user/sendOtp","/api/user/checkByMobile")
+                .permitAll()
+            .antMatchers(HttpMethod.GET, "/api/polls/**", "/api/users/**")
+                .permitAll()
+            .anyRequest()
+                .authenticated();
 
 		// Add our custom JWT security filter
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

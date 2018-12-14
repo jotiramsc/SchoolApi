@@ -112,31 +112,6 @@ public class UserController {
 		}
 		return false;
 	}
-	@PostMapping("/user/login")
-	public ResponseEntity<?> authenticateAppUser(@Valid @RequestBody LoginRequest loginRequest) {
-
-		Optional<User> userData= userRepository.findByMobile(loginRequest.getUsernameOrEmail().trim());
-		if(userData.isPresent())
-		{
-		
-			if(userData.get().getOtp().equalsIgnoreCase(loginRequest.getPassword().trim()))
-			{
-			Authentication authentication = authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmail(), loginRequest.getPassword()));
-	
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-	
-			String jwt = tokenProvider.generateToken(authentication);
-			return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
-			}else
-			{
-				return ResponseEntity.ok("Invalid OTP");
-			}
-		}else
-		{
-			return ResponseEntity.ok("Invalid Mobile");
-		}
-	}
 	
 	@GetMapping("/user/checkEmailAvailability")
 	public UserIdentityAvailability checkEmailAvailability(@RequestParam(value = "email") String email) {

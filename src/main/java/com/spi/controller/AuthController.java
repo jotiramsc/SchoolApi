@@ -65,6 +65,32 @@ public class AuthController {
 		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
 	}
 	
+	@PostMapping("/login")
+	public ResponseEntity<?> authenticateAppUser(@Valid @RequestBody LoginRequest loginRequest) {
+
+		Optional<User> userData= userRepository.findByMobile(loginRequest.getUsernameOrEmail().trim());
+		if(userData.isPresent())
+		{
+		
+			if(userData.get().getOtp().equalsIgnoreCase(loginRequest.getPassword().trim()))
+			{
+			Authentication authentication = authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(userData.get().getUsername(), userData.get().getPassword()));
+	
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+	
+			String jwt = tokenProvider.generateToken(authentication);
+			return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+			}else
+			{
+				return ResponseEntity.ok("Invalid OTP");
+			}
+		}else
+		{
+			return ResponseEntity.ok("Invalid Mobile");
+		}
+	}
+	
 	
 
 	@PostMapping("/signup")
@@ -83,6 +109,7 @@ public class AuthController {
 				signUpRequest.getPassword(),1,1);
 
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
 
 		Role userRole = roleRepository.findByName(RoleName.ROLE_USER);
 
